@@ -21,13 +21,13 @@ For development you additionaly need:
 Install latest available source using
 
 ```
-python -m pip install git+https://github.com/exTerEX/noaa-python.git#egg=noaa
+python -m pip install git+https://github.com/exTerEX/noaa.git#egg=noaa
 ```
 
 Or install specific version (tag, commit, branch) available using
 
 ```
-python -m pip install git+https://github.com/exTerEX/noaa-python.git@<branch/commit hash/tag>#egg=noaa
+python -m pip install git+https://github.com/exTerEX/noaa.git@<branch/commit hash/tag>#egg=noaa
 ```
 
 where `<branch/commit hash/tag>` is changed out for a specific branch (e.g. main, development), commit hash (e.g. 86ba995, 770f02), or tag (e.g. 0.1.0-alpha, 1.17.6)
@@ -37,7 +37,7 @@ where `<branch/commit hash/tag>` is changed out for a specific branch (e.g. main
 Install latest available source using
 
 ```
-python -m pip install git+https://github.com/exTerEX/noaa-python/tarball/main
+python -m pip install git+https://github.com/exTerEX/noaa/tarball/main
 ```
 
 ### Usage
@@ -65,11 +65,11 @@ TODO: Not implemented yet.
 
 ## Contributing
 
-Please read [CONTRIBUTING](https://github.com/exTerEX/noaa-python/blob/main/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING](https://github.com/exTerEX/noaa/blob/main/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-This project use [Semantic Versioning](https://semver.org/) for versioning. For the versions available, see the [tags](https://github.com/exTerEX/noaa-python/tags) on this repository.
+This project use [Semantic Versioning](https://semver.org/) for versioning. For the versions available, see the [tags](https://github.com/exTerEX/noaa/tags) on this repository.
 
 ## Authors
 

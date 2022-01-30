@@ -48,5 +48,5 @@ The aim of this repository is:
 
 ### Does it follow the contributor covenant
 
-This repository has a [code of conduct](https://github.com/exTerEX/noaa-python/blob/main/.github/CODE_OF_CONDUCT.md), I will
+This repository has a [code of conduct](https://github.com/exTerEX/noaa/blob/main/.github/CODE_OF_CONDUCT.md), I will
 remove things that do not respect it.
