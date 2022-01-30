@@ -24,6 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+__author__ = "Andreas Sagen"
+__copyright__ = ""
+__licence__ = "MIT"
+__version__ = "0.0.1a0"
+
 import json
 import urllib.parse
 import urllib.request

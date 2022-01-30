@@ -1,5 +1,5 @@
 from noaa.api import NOAA
-from .attr import __author__, __copyright__, __licence__, __version__
+from noaa.api import __author__, __copyright__, __licence__, __version__
 
 __all__ = [
     "__author__",
