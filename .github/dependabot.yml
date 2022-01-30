@@ -1,0 +1,47 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "thursday"
+      time: "06:00"
+      timezone: "Europe/Oslo"
+    allow:
+      - dependency-name: "sphinx"
+        dependency-type: "production"
+    labels:
+      - "dependencies"
+      - "python"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "exTerEX"
+    target-branch: "main"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Oslo"
+    labels:
+      - "dependencies"
+      - "actions"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "exTerEX"
+    target-branch: "main"
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "sunday"
+      time: "06:00"
+      timezone: "Europe/Oslo"
+    labels:
+      - "dependencies"
+      - "docker"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "exTerEX"
+    target-branch: "main"
