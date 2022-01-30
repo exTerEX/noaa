@@ -1,0 +1,10 @@
+{
+	"python.linting.enabled": true,
+	"python.linting.pylintEnabled": true,
+	"python.formatting.provider": "autopep8",
+	"python.formatting.autopep8Args": [
+		"--aggressive",
+		"--experimental"
+	],
+	"autoDocstring.docstringFormat": "sphinx"
+}
