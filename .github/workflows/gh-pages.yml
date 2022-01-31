@@ -39,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r ./requirements-dev.txt
 
+      - name: Install local package
+        run: python3 -m pip install .
+
       - name: Build documentation
         run: |
           cd docs
