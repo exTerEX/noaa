@@ -1,0 +1,9 @@
+.github
+.vscode
+dist
+docs
+.dockerignore
+.editorconfig
+.gitattributes
+.gitignore
+requirements-dev.txt
