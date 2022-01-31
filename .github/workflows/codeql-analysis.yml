@@ -8,6 +8,7 @@ on:
     paths-ignore:
       - "**/*.md"
       - "**/*.txt"
+      - "**/*.rst"
 
   schedule:
     - cron: "0 0 1 * *"
