@@ -17,6 +17,54 @@
 				"panel": "dedicated"
 			},
 			"problemMatcher": []
+		},
+		{
+			"label": "Wheel build",
+			"type": "shell",
+			"command": "pip wheel . --use-pep517 --wheel-dir dist",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Coverage",
+			"type": "shell",
+			"command": "make coverage",
+			"options": {
+				"cwd": "${workspaceFolder}/docs"
+			},
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Doctest",
+			"type": "shell",
+			"command": "make doctest",
+			"options": {
+				"cwd": "${workspaceFolder}/docs"
+			},
+			"group": "test",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
 		}
 	]
 }
