@@ -1,0 +1,22 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "HTML build",
+			"type": "shell",
+			"command": "make html",
+			"options": {
+				"cwd": "${workspaceFolder}/docs"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		}
+	]
+}

@@ -46,6 +46,7 @@ jobs:
         run: |
           cd docs
           make html
+          rm build/html/.buildinfo build/html/objects.inv
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

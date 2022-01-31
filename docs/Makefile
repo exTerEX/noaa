@@ -10,5 +10,3 @@ help:
 
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	@echo $(CWD)
-	@if [ "$@" = "html" ]; then rm build/html/.buildinfo build/html/objects.inv; fi
