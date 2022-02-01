@@ -1,4 +1,4 @@
-FROM python:3.9.10-slim-buster
+FROM python:3.10.2-slim-buster
 
 COPY --chown=root:root . /tmp/noaa
 
