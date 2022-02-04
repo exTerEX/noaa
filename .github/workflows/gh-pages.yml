@@ -5,6 +5,31 @@ on:
     branches:
       - main
 
+    paths-ignore:
+      - ".vscode/**"
+      - ".git*"
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+      - ".dockerignore"
+      - "Dockerfile"
+      - ".github/workflows/codeql-analysis.yml"
+      - ".github/workflows/publish-docker.yml"
+
+  pull_request:
+    - main
+
+    paths-ignore:
+      - ".vscode/**"
+      - ".git*"
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+      - ".dockerignore"
+      - "Dockerfile"
+      - ".github/workflows/codeql-analysis.yml"
+      - ".github/workflows/publish-docker.yml"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -42,6 +67,7 @@ jobs:
           rm build/html/.buildinfo build/html/objects.inv
 
       - name: Deploy
+        if: github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

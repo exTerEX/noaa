@@ -6,9 +6,16 @@ on:
       - main
 
     paths-ignore:
-      - "**/*.md"
-      - "**/*.txt"
-      - "**/*.rst"
+      - "docs/**"
+      - ".vscode/**"
+      - ".git*"
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+      - ".dockerignore"
+      - "Dockerfile"
+      - ".github/workflows/gh-pages.yml"
+      - ".github/workflows/publish-docker.yml"
 
   schedule:
     - cron: "0 0 1 * *"

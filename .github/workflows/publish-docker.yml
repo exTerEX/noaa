@@ -4,11 +4,33 @@ on:
   push:
     branches:
       - "main"
+
+    paths-ignore:
+      - "docs/**"
+      - ".vscode/**"
+      - ".git*"
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+      - ".github/workflows/codeql-analysis.yml"
+      - ".github/workflows/gh-pages.yml"
+
     tags:
       - "v*.*.*"
+
   pull_request:
     branches:
       - "main"
+
+    paths-ignore:
+      - "docs/**"
+      - ".vscode/**"
+      - ".git*"
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+      - ".github/workflows/codeql-analysis.yml"
+      - ".github/workflows/gh-pages.yml"
 
 env:
   REGISTRY: ghcr.io
