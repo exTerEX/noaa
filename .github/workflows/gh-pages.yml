@@ -17,7 +17,8 @@ on:
       - ".github/workflows/publish-docker.yml"
 
   pull_request:
-    - main
+    branches:
+      - main
 
     paths-ignore:
       - ".vscode/**"
