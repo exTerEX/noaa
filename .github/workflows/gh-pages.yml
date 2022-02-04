@@ -20,10 +20,6 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
 
-      - name: Install pipenv
-        run: |
-          python3 -m pip install pipenv
-
       - name: Get pip cache directory
         id: pip-cache
         run: echo "::set-output name=dir::$(pip cache dir)"
@@ -38,9 +34,6 @@ jobs:
 
       - name: Install dependencies
         run: python3 -m pip install -r ./requirements-dev.txt
-
-      - name: Install local package
-        run: python3 -m pip install .
 
       - name: Build documentation
         run: |

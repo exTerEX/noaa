@@ -9,8 +9,6 @@ http://www.sphinx-doc.org/en/master/config
 import os
 import sys
 
-from noaa.api import __version__
-
 # -- Path setup --------------------------------------------------------------
 
 sys.path.insert(0, os.path.abspath("../../noaa"))
@@ -20,9 +18,6 @@ sys.path.insert(0, os.path.abspath("../../noaa"))
 project = "NOAA"
 copyright = "2022, Andreas Sagen"
 author = "Andreas Sagen"
-version = ".".join(__version__.split(".")[0:2])
-release = __version__
-print(release)
 
 # -- General configuration ---------------------------------------------------
 
