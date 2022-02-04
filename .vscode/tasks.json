@@ -18,9 +18,6 @@
 		{
 			"label": "HTML build",
 			"type": "shell",
-			"dependsOn": [
-				"Install package"
-			],
 			"command": "make html",
 			"options": {
 				"cwd": "${workspaceFolder}/docs"
