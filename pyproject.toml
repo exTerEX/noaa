@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
 version_scheme = "python-simplified-semver"
+fallback_version = "0.0.1.dev+unset"
 
 [tool.pyright]
 exclude = ["**/__pycache__", "noaa.egg-info"]
@@ -20,4 +21,9 @@ jobs = 0
 persistent = "yes"
 
 [tool.pylint.messages_control]
-disable = ["too-many-arguments", "too-many-locals", "too-many-branches"]
+disable = [
+    "too-many-arguments",
+    "too-many-locals",
+    "too-many-branches",
+    "too-many-statements",
+]

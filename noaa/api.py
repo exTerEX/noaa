@@ -28,7 +28,7 @@ import datetime
 import json
 import urllib.parse
 import urllib.request
-from typing import Optional
+from typing import Optional, Union
 
 
 class NOAA:
@@ -47,9 +47,9 @@ class NOAA:
     def get_datasets(
         self,
         dataset_id: Optional[str] = None,
-        data_type_id: Optional[str] = None,
-        location_id: Optional[str] = None,
-        station_id: Optional[str] = None,
+        data_type_id: Optional[Union[str, list, tuple]] = None,
+        location_id: Optional[Union[str, list, tuple]] = None,
+        station_id: Optional[Union[str, list, tuple]] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         sort_field: Optional[str] = None,
@@ -62,11 +62,11 @@ class NOAA:
         :param dataset_id: Identification to dataset in CDO, defaults to None
         :type dataset_id: str, optional
         :param data_type_id: Identification to datatype(s) in CDO, defaults to None
-        :type data_type_id: str, optional
+        :type data_type_id: str, list, tuple, optional
         :param location_id: Identification to location(s) in CDO, defaults to None
-        :type location_id: str, optional
+        :type location_id: str, list, tuple, optional
         :param station_id: Identification to station(s) in CDO, defaults to None
-        :type station_id: str, optional
+        :type station_id: str, list, tuple, optional
         :param start_date: Filter from time in ISO formatted date, defaults to None
         :type start_date: str, optional
         :param end_date: Filter to time in ISO formatted date, defaults to None
@@ -86,7 +86,7 @@ class NOAA:
         :rtype: dict
         """
         if not isinstance(dataset_id, str) and dataset_id is not None:
-            raise TypeError("IDs should be string's")
+            raise TypeError("dataset_id should be string's")
 
         endpoint = "datasets"
         if dataset_id is not None:
@@ -108,9 +108,9 @@ class NOAA:
     def get_data_categories(
         self,
         category_id: Optional[str] = None,
-        dataset_id: Optional[str] = None,
-        location_id: Optional[str] = None,
-        station_id: Optional[str] = None,
+        dataset_id: Optional[Union[str, list, tuple]] = None,
+        location_id: Optional[Union[str, list, tuple]] = None,
+        station_id: Optional[Union[str, list, tuple]] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         sort_field: Optional[str] = None,
@@ -123,11 +123,11 @@ class NOAA:
         :param category_id: Identification to category in CDO, defaults to None
         :type category_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
-        :type dataset_id: str, optional
+        :type dataset_id: str, list, tuple, optional
         :param location_id: Identification to location(s) in CDO, defaults to None
-        :type location_id: str, optional
+        :type location_id: str, list, tuple, optional
         :param station_id: Identification to station(s) in CDO, defaults to None
-        :type station_id: str, optional
+        :type station_id: str, list, tuple, optional
         :param start_date: Filter from time in ISO formatted date, defaults to None
         :type start_date: str, optional
         :param end_date: Filter to time in ISO formatted date, defaults to None
@@ -147,7 +147,7 @@ class NOAA:
         :rtype: dict
         """
         if not isinstance(category_id, str) and category_id is not None:
-            raise TypeError("IDs should be string's")
+            raise TypeError("category_id should be string's")
 
         endpoint = "datacategories"
         if category_id is not None:
@@ -169,10 +169,10 @@ class NOAA:
     def get_data_types(
         self,
         type_id: Optional[str] = None,
-        dataset_id: Optional[str] = None,
-        location_id: Optional[str] = None,
-        station_id: Optional[str] = None,
-        data_category_id: Optional[str] = None,
+        dataset_id: Optional[Union[str, list, tuple]] = None,
+        location_id: Optional[Union[str, list, tuple]] = None,
+        station_id: Optional[Union[str, list, tuple]] = None,
+        data_category_id: Optional[Union[str, list, tuple]] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         sort_field: Optional[str] = None,
@@ -185,13 +185,13 @@ class NOAA:
         :param type_id: Identification to type in CDO, defaults to None
         :type type_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
-        :type dataset_id: str, optional
+        :type dataset_id: str, list, tuple, optional
         :param location_id: Identification to location(s) in CDO, defaults to None
-        :type location_id: str, optional
+        :type location_id: str, list, tuple, optional
         :param station_id: Identification to station(s) in CDO, defaults to None
-        :type station_id: str, optional
+        :type station_id: str, list, tuple, optional
         :param data_category_id: Identification to data category in CDO, defaults to None
-        :type data_category_id: str, optional
+        :type data_category_id: str, list, tuple, optional
         :param start_date: Filter from time in ISO formatted date, defaults to None
         :type start_date: str, optional
         :param end_date: Filter to time in ISO formatted date, defaults to None
@@ -211,7 +211,7 @@ class NOAA:
         :rtype: dict
         """
         if not isinstance(type_id, str) and type_id is not None:
-            raise TypeError("IDs should be string's")
+            raise TypeError("type_id should be string's")
 
         endpoint = "datatypes"
         if type_id is not None:
@@ -234,7 +234,7 @@ class NOAA:
     def get_location_categories(
         self,
         location_category_id: Optional[str] = None,
-        dataset_id: Optional[str] = None,
+        dataset_id: Optional[Union[str, list, tuple]] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         sort_field: Optional[str] = None,
@@ -247,7 +247,7 @@ class NOAA:
         :param location_category_id: Identification to location category in CDO, defaults to None
         :type location_category_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
-        :type dataset_id: str, optional
+        :type dataset_id: str, list, tuple, optional
         :param start_date: Filter from time in ISO formatted date, defaults to None
         :type start_date: str, optional
         :param end_date: Filter to time in ISO formatted date, defaults to None
@@ -268,7 +268,7 @@ class NOAA:
         """
         if not isinstance(location_category_id,
                           str) and location_category_id is not None:
-            raise TypeError("IDs should be string's")
+            raise TypeError("location_category_id should be string's")
 
         endpoint = "locationcategories"
         if location_category_id is not None:
@@ -288,9 +288,9 @@ class NOAA:
     def get_locations(
         self,
         location_id: Optional[str] = None,
-        dataset_id: Optional[str] = None,
-        location_category_id: Optional[str] = None,
-        data_category_id: Optional[str] = None,
+        dataset_id: Optional[Union[str, list, tuple]] = None,
+        location_category_id: Optional[Union[str, list, tuple]] = None,
+        data_category_id: Optional[Union[str, list, tuple]] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         sort_field: Optional[str] = None,
@@ -303,11 +303,11 @@ class NOAA:
         :param location_id: Identification to location in CDO, defaults to None
         :type location_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
-        :type dataset_id: str, optional
+        :type dataset_id: str, list, tuple, optional
         :param location_category_id: Identification to location category in CDO, defaults to None
-        :type location_category_id: str, optional
+        :type location_category_id: str, list, tuple, optional
         :param data_category_id: Identification to data category in CDO, defaults to None
-        :type data_category_id: str, optional
+        :type data_category_id: str, list, tuple, optional
         :param start_date: Filter from time in ISO formatted date, defaults to None
         :type start_date: str, optional
         :param end_date: Filter to time in ISO formatted date, defaults to None
@@ -327,7 +327,7 @@ class NOAA:
         :rtype: dict
         """
         if not isinstance(location_id, str) and location_id is not None:
-            raise TypeError("IDs should be string's")
+            raise TypeError("location_id should be string's")
 
         endpoint = "locations"
         if location_id is not None:
@@ -349,10 +349,10 @@ class NOAA:
     def get_stations(
         self,
         station_id: Optional[str] = None,
-        dataset_id: Optional[str] = None,
-        location_id: Optional[str] = None,
-        data_category_id: Optional[str] = None,
-        data_type_id: Optional[str] = None,
+        dataset_id: Optional[Union[str, list, tuple]] = None,
+        location_id: Optional[Union[str, list, tuple]] = None,
+        data_category_id: Optional[Union[str, list, tuple]] = None,
+        data_type_id: Optional[Union[str, list, tuple]] = None,
         extent: Optional[str] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
@@ -366,13 +366,13 @@ class NOAA:
         :param station_id: Identification to station in CDO, defaults to None
         :type station_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
-        :type dataset_id: str, optional
+        :type dataset_id: str, list, tuple, optional
         :param location_id: Identification to location(s) in CDO, defaults to None
-        :type location_id: str, optional
+        :type location_id: str, list, tuple, optional
         :param data_category_id: Identification to data category in CDO, defaults to None
-        :type data_category_id: str, optional
+        :type data_category_id: str, list, tuple, optional
         :param data_type_id: Identification to datatype(s) in CDO, defaults to None
-        :type data_type_id: str, optional
+        :type data_type_id: str, list, tuple, optional
         :param extent: Desired geographical extent for search in CDO, defaults to None
         :type extent: str, optional
         :param start_date: Filter from time in ISO formatted date, defaults to None
@@ -416,16 +416,14 @@ class NOAA:
         )
 
     # FIXME: Error not found
-    # TODO: Allow for lists of input for dataset_id, datatype_id, location_id
-    # and station_id
     def get_data(
         self,
-        dataset_id: str,
-        start_date: str,
-        end_date: str,
-        data_type_id: Optional[str] = None,
-        location_id: Optional[str] = None,
-        station_id: Optional[str] = None,
+        dataset_id: Union[str, datetime.datetime],
+        start_date: Union[str, datetime.datetime],
+        end_date: Union[str, datetime.datetime],
+        data_type_id: Optional[Union[str, list, tuple]] = None,
+        location_id: Optional[Union[str, list, tuple]] = None,
+        station_id: Optional[Union[str, list, tuple]] = None,
         units: Optional[str] = "metric",
         sort_field: Optional[str] = None,
         sort_order: Optional[str] = "asc",
@@ -436,17 +434,17 @@ class NOAA:
         """Get available data in CDO
 
         :param dataset_id: Identification to dataset in CDO
-        :type dataset_id: str
+        :type dataset_id: str, datetime.datetime
         :param start_date: Filter from time in ISO formatted date
-        :type start_date: str
+        :type start_date: str, datetime.datetime
         :param end_date: Filter to time in ISO formatted date
-        :type end_date: str
+        :type end_date: str, datetime.datetime
         :param data_type_id: Identification to datatype(s) in CDO, defaults to None
-        :type data_type_id: str, optional
+        :type data_type_id: str, list, tuple, optional
         :param location_id: Identification to location(s) in CDO, defaults to None
-        :type location_id: str, optional
+        :type location_id: str, list, tuple, optional
         :param station_id: Identification to station(s) in CDO, defaults to None
-        :type station_id: str, optional
+        :type station_id: str, list, tuple, optional
         :param units: Data will be scaled and converted to the specified units, defaults to "metric"
         :type units: str, optional
         :param sort_field: Field to be used when sorting, defaults to None
@@ -483,34 +481,40 @@ class NOAA:
     def _call_api(
         self,
         endpoint: str,
-        dataset_id: Optional[str] = None,
-        data_type_id: Optional[str] = None,
-        data_category_id: Optional[str] = None,
+        dataset_id: Optional[Union[str, list, tuple]] = None,
+        data_type_id: Optional[Union[str, list, tuple]] = None,
+        data_category_id: Optional[Union[str, list, tuple]] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         extent: Optional[str] = None,
         include_metadata: Optional[bool] = False,
         limit: Optional[int] = 25,
-        location_id: Optional[str] = None,
-        location_category_id: Optional[str] = None,
+        location_id: Optional[Union[str, list, tuple]] = None,
+        location_category_id: Optional[Union[str, list, tuple]] = None,
         offset: Optional[int] = 0,
         sort_field: Optional[str] = None,
         sort_order: Optional[str] = "asc",
-        station_id: Optional[str] = None,
+        station_id: Optional[Union[str, list, tuple]] = None,
         units: Optional[str] = "metric"
     ) -> dict:
-        _ids = [
+        _ids_1 = [
             dataset_id,
             data_type_id,
-            data_category_id,
             location_id,
-            location_category_id,
-            station_id
+            station_id,
+            data_category_id,
+            location_category_id
         ]
 
-        for _id in _ids:
-            if not isinstance(_id, str) and _id is not None:
-                raise TypeError("IDs should be string type value")
+        for _id in _ids_1:
+            if not isinstance(_id, (str, list, tuple)) and _id is not None:
+                raise TypeError(f"{_id} should be string or array type value")
+
+            if isinstance(_id, (list, tuple)):
+                for value in _id:
+                    if not isinstance(value, str):
+                        raise TypeError(
+                            f"All values in {_id} should be string type values")
 
         if not isinstance(extent, str) and extent is not None:
             raise TypeError("Extent has to be a string type value")
@@ -569,6 +573,18 @@ class NOAA:
         if units not in ["standard", "metric"]:
             raise ValueError(f"{units} is not an accepted value")
 
+        if isinstance(dataset_id, (list, tuple)):
+            dataset_id = "&".join(dataset_id)
+
+        if isinstance(data_type_id, (list, tuple)):
+            data_type_id = "&".join(data_type_id)
+
+        if isinstance(location_id, (list, tuple)):
+            location_id = "&".join(location_id)
+
+        if isinstance(station_id, (list, tuple)):
+            station_id = "&".join(station_id)
+
         data = {
             "datacategoryid": data_category_id,
             "datasetid": dataset_id,
@@ -587,13 +603,13 @@ class NOAA:
             "units": units
         }
 
-        data = {key: val for key, val in data.items() if val is not None}
+        data = {key: value for key, value in data.items() if value is not None}
 
         url = urllib.parse.urljoin(self._host, endpoint)
-        params = urllib.parse.urlencode(data)
+        params = urllib.parse.urlencode(data, safe="")
 
         request = urllib.request.Request(
-            url="?".join([url, params]),
+            url="?".join([url, params]).replace("%26", "&"),
             headers=self._api_header, method="GET")
 
         with urllib.request.urlopen(request) as response:
