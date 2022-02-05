@@ -404,6 +404,8 @@ class NOAA:
         )
 
     # FIXME: Error not found
+    # TODO: Allow for lists of input for dataset_id, datatype_id, location_id
+    # and station_id
     def get_data(
         self,
         dataset_id: str,
@@ -496,24 +498,26 @@ class NOAA:
 
         for _id in _ids:
             if not isinstance(_id, str) and _id is not None:
-                raise TypeError("IDs should be string's")
+                raise TypeError("IDs should be string type value")
 
         if not isinstance(extent, str) and extent is not None:
-            raise TypeError("")
+            raise TypeError("Extent has to be a string type value")
 
-        # TODO: Support date time ISO input
+        # TODO: Support date-time ISO input
         _dates = [start_date, end_date]
 
         for _date in _dates:
             if not isinstance(_date, (str, datetime.datetime)
                               ) and _date is not None:
-                raise TypeError("")
+                raise TypeError(
+                    "Dates has to be given as a string or datetime type value")
 
-            if _date is not None:
+            if _date is not None and _date is not datetime.datetime:
                 try:
                     datetime.datetime.strptime(_date, "%Y-%m-%d")
                 except ValueError as iso_error:
-                    raise ValueError("") from iso_error
+                    raise ValueError(
+                        "Dates has to be on ISO date format 'yyyy-mm-dd'") from iso_error
 
         if isinstance(start_date, datetime.datetime):
             start_date = start_date.strftime("%Y-%m-%d")
@@ -522,36 +526,36 @@ class NOAA:
             end_date = end_date.strftime("%Y-%m-%d")
 
         if not isinstance(include_metadata, bool):
-            raise TypeError("")
+            raise TypeError("include_metadata should be a boolean type value")
 
         if not isinstance(limit, int):
-            raise TypeError("")
+            raise TypeError("limit should be an integer type value")
 
         if limit > 1000:
             raise ValueError(
                 "Maximum limit is 1000. Choose a value between 0 and 1000")
 
         if not isinstance(offset, int):
-            raise TypeError("")
+            raise TypeError("offset should be an integer type value")
 
         if not isinstance(sort_field, str) and sort_field is not None:
-            raise TypeError("")
+            raise TypeError("sort_field should be an string type value")
 
         if sort_field not in [None, "id", "name",
                               "mindate", "maxdate", "datacoverage"]:
-            raise ValueError("")
+            raise ValueError(f"{sort_field} is not an accepted value")
 
         if not isinstance(sort_order, str):
-            raise TypeError("")
+            raise TypeError("sort_order should be an string type value")
 
         if sort_order not in ["asc", "desc"]:
-            raise ValueError("")
+            raise ValueError(f"{sort_field} is not an accepted value")
 
         if not isinstance(units, str):
-            raise TypeError("")
+            raise TypeError("units should be an string type value")
 
         if units not in ["standard", "metric"]:
-            raise ValueError("")
+            raise ValueError(f"{units} is not an accepted value")
 
         data = {
             "datacategoryid": data_category_id,
