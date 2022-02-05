@@ -4,11 +4,33 @@ on:
   push:
     branches:
       - "main"
+
+    paths-ignore:
+      - "docs/**"
+      - ".vscode/**"
+      - ".git*"
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+      - ".github/workflows/codeql-analysis.yml"
+      - ".github/workflows/gh-pages.yml"
+
     tags:
       - "v*.*.*"
+
   pull_request:
     branches:
       - "main"
+
+    paths-ignore:
+      - "docs/**"
+      - ".vscode/**"
+      - ".git*"
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+      - ".github/workflows/codeql-analysis.yml"
+      - ".github/workflows/gh-pages.yml"
 
 env:
   REGISTRY: ghcr.io
@@ -24,7 +46,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.4.0
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v1.6.0

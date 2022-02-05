@@ -2,6 +2,20 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "Install package",
+			"type": "shell",
+			"command": "pip install --use-pep517 .",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": "build",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
 			"label": "HTML build",
 			"type": "shell",
 			"command": "make html",
@@ -21,7 +35,7 @@
 		{
 			"label": "Wheel build",
 			"type": "shell",
-			"command": "pip wheel . --use-pep517 --wheel-dir dist",
+			"command": "pip wheel --use-pep517 --wheel-dir dist .",
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},

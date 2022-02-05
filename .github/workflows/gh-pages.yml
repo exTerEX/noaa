@@ -5,14 +5,40 @@ on:
     branches:
       - main
 
+    paths-ignore:
+      - ".vscode/**"
+      - ".git*"
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+      - ".dockerignore"
+      - "Dockerfile"
+      - ".github/workflows/codeql-analysis.yml"
+      - ".github/workflows/publish-docker.yml"
+
+  pull_request:
+    branches:
+      - main
+
+    paths-ignore:
+      - ".vscode/**"
+      - ".git*"
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+      - ".dockerignore"
+      - "Dockerfile"
+      - ".github/workflows/codeql-analysis.yml"
+      - ".github/workflows/publish-docker.yml"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.4.0
 
       - name: Setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v2.3.2
         with:
           python-version: "3.6"
 
@@ -20,16 +46,12 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
 
-      - name: Install pipenv
-        run: |
-          python3 -m pip install pipenv
-
       - name: Get pip cache directory
         id: pip-cache
         run: echo "::set-output name=dir::$(pip cache dir)"
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.7
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-dev.txt') }}
@@ -39,9 +61,6 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r ./requirements-dev.txt
 
-      - name: Install local package
-        run: python3 -m pip install .
-
       - name: Build documentation
         run: |
           cd docs
@@ -49,7 +68,8 @@ jobs:
           rm build/html/.buildinfo build/html/objects.inv
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        if: github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v3.7.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
