@@ -1,8 +1,12 @@
-FROM python:3.10.2-slim-buster
+FROM python:3.10.2-buster as builder
 
 COPY --chown=root:root . /tmp/noaa
-
 WORKDIR /tmp/noaa
 
-# FIXME: Feed version in some way?
-#RUN pip install . && rm -rf /tmp/noaa
+RUN pip wheel --use-pep517 .
+
+FROM python:3.10.2-slim-buster
+
+COPY --from=builder /tmp/noaa/*.whl /tmp
+
+RUN cd /tmp && pip install *.whl && rm *.whl
