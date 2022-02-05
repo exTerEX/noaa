@@ -80,6 +80,8 @@ class NOAA:
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
 
+        :raises TypeError: If dataset_id is not string or None, raises an error.
+
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -138,6 +140,8 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
+
+        :raises TypeError: If category_id is not string or None, raises an error.
 
         :return: Return a object with data from response
         :rtype: dict
@@ -201,6 +205,8 @@ class NOAA:
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
 
+        :raises TypeError: If type_id is not string or None, raises an error.
+
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -254,6 +260,8 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
+
+        :raises TypeError: If location_category_id is not string or None, raises an error.
 
         :return: Return a object with data from response
         :rtype: dict
@@ -312,6 +320,8 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
+
+        :raises TypeError: If location_id is not string or None, raises an error.
 
         :return: Return a object with data from response
         :rtype: dict
@@ -377,6 +387,8 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
+
+        :raises TypeError: If station_id is not string or None, raises an error.
 
         :return: Return a object with data from response
         :rtype: dict
