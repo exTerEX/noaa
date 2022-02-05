@@ -1,0 +1,115 @@
+name: Create draft release
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+  pull_request:
+    branches:
+      - main
+
+    paths-ignore:
+      - "docs/**"
+      - ".vscode/**"
+      - ".git*"
+      - "README.md"
+      - "LICENSE"
+      - ".editorconfig"
+      - ".dockerignore"
+      - "Dockerfile"
+      - ".github/workflows/codeql-analysis.yml"
+      - ".github/workflows/publish-docker.yml"
+      - ".github/workflows/gh-pages.yml"
+
+jobs:
+  format-check:
+    name: Check correct formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - name: autopep8
+        id: autopep8
+        uses: peter-evans/autopep8@v1.2.1
+        with:
+          args: --recursive --diff --aggressive --aggressive noaa/**/*.py
+
+      - name: Fail if autopep8 finds changes
+        if: steps.autopep8.outputs.exit-code == 2
+        run: exit 1
+
+  lint-check:
+    name: Check correct lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.3.2
+        with:
+          python-version: 3.6
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint>=2.5
+
+      - name: Analysing the code with pylint
+        run: |
+          pylint --errors-only --py-version=3.6 --rcfile=pyproject.toml noaa
+
+  test:
+    name: Test module on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+      fail-fast: true
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2.3.2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+    # TODO: Implement unittest and run
+
+  build:
+    if: github.event_name != 'pull_request'
+    name: Build wheel
+    needs: [format-check, lint-check, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.4.0
+
+  draft:
+    if: github.event_name != 'pull_request'
+    name: Create draft
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.4.0
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: true
+          prerelease: false

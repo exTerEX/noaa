@@ -1,6 +1,9 @@
 [build-system]
-requires = ["setuptools>=42.0.0", "wheel>=0.29.0"]
+requires = ["setuptools>=42.0.0", "wheel>=0.29.0", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+version_scheme = "python-simplified-semver"
 
 [tool.pyright]
 exclude = ["**/__pycache__", "noaa.egg-info"]
@@ -12,8 +15,7 @@ pythonVersion = "3.6"
 multi_line_output = 5
 
 [tool.pylint.master]
-ignore = ["__init__.py", "docs"]
-ignore-patterns = ["**/__pycache__/**/*.py", "**/docs/**/*.py"]
+ignore = ["__init__.py", "docs", "__pycache__"]
 jobs = 0
 persistent = "yes"
 
