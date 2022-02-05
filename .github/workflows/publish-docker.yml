@@ -32,6 +32,7 @@ on:
       - ".editorconfig"
       - ".github/workflows/codeql-analysis.yml"
       - ".github/workflows/gh-pages.yml"
+      - ".github/workflows/release.yml"
 
 env:
   REGISTRY: ghcr.io
