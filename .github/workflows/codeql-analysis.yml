@@ -16,6 +16,7 @@ on:
       - "Dockerfile"
       - ".github/workflows/gh-pages.yml"
       - ".github/workflows/publish-docker.yml"
+      - ".github/workflows/release.yml"
 
   schedule:
     - cron: "0 0 1 * *"

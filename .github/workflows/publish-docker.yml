@@ -14,6 +14,7 @@ on:
       - ".editorconfig"
       - ".github/workflows/codeql-analysis.yml"
       - ".github/workflows/gh-pages.yml"
+      - ".github/workflows/release.yml"
 
     tags:
       - "v*.*.*"

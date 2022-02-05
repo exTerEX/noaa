@@ -30,6 +30,7 @@ on:
       - "Dockerfile"
       - ".github/workflows/codeql-analysis.yml"
       - ".github/workflows/publish-docker.yml"
+      - ".github/workflows/release.yml"
 
 jobs:
   deploy:
