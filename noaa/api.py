@@ -587,7 +587,7 @@ class NOAA:
             "units": units
         }
 
-        data = {key: val for key, val in data.items() if val is not None}
+        data = {key: value for key, value in data.items() if value is not None}
 
         url = urllib.parse.urljoin(self._host, endpoint)
         params = urllib.parse.urlencode(data)
