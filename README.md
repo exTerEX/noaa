@@ -77,7 +77,7 @@ This project use [Semantic Versioning](https://semver.org/) for versioning. For 
 
 ## Authors
 
-- _Andreas Sagen_ - Provided
+- _Andreas Sagen_ - Initial contributer
 
 ## License
 
