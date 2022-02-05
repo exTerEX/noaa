@@ -24,6 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import datetime
 import json
 import urllib.parse
 import urllib.request
@@ -82,6 +83,8 @@ class NOAA:
         :return: Return a object with data from response
         :rtype: dict
         """
+        if not isinstance(dataset_id, str) and dataset_id is not None:
+            raise TypeError("IDs should be string's")
 
         endpoint = "datasets"
         if dataset_id is not None:
@@ -139,6 +142,8 @@ class NOAA:
         :return: Return a object with data from response
         :rtype: dict
         """
+        if not isinstance(category_id, str) and category_id is not None:
+            raise TypeError("IDs should be string's")
 
         endpoint = "datacategories"
         if category_id is not None:
@@ -199,6 +204,8 @@ class NOAA:
         :return: Return a object with data from response
         :rtype: dict
         """
+        if not isinstance(type_id, str) and type_id is not None:
+            raise TypeError("IDs should be string's")
 
         endpoint = "datatypes"
         if type_id is not None:
@@ -251,6 +258,9 @@ class NOAA:
         :return: Return a object with data from response
         :rtype: dict
         """
+        if not isinstance(location_category_id,
+                          str) and location_category_id is not None:
+            raise TypeError("IDs should be string's")
 
         endpoint = "locationcategories"
         if location_category_id is not None:
@@ -306,6 +316,8 @@ class NOAA:
         :return: Return a object with data from response
         :rtype: dict
         """
+        if not isinstance(location_id, str) and location_id is not None:
+            raise TypeError("IDs should be string's")
 
         endpoint = "locations"
         if location_id is not None:
@@ -369,6 +381,8 @@ class NOAA:
         :return: Return a object with data from response
         :rtype: dict
         """
+        if not isinstance(station_id, str) and station_id is not None:
+            raise TypeError("IDs should be string's")
 
         endpoint = "stations"
         if station_id is not None:
@@ -389,15 +403,15 @@ class NOAA:
             sort_order=sort_order
         )
 
-    # FIXME: problem in this function
+    # FIXME: Error not found
     def get_data(
         self,
         dataset_id: str,
+        start_date: str,
+        end_date: str,
         data_type_id: Optional[str] = None,
         location_id: Optional[str] = None,
         station_id: Optional[str] = None,
-        start_date: Optional[str] = None,
-        end_date: Optional[str] = None,
         units: Optional[str] = "metric",
         sort_field: Optional[str] = None,
         sort_order: Optional[str] = "asc",
@@ -409,16 +423,16 @@ class NOAA:
 
         :param dataset_id: Identification to dataset in CDO
         :type dataset_id: str
+        :param start_date: Filter from time in ISO formatted date
+        :type start_date: str
+        :param end_date: Filter to time in ISO formatted date
+        :type end_date: str
         :param data_type_id: Identification to datatype(s) in CDO, defaults to None
         :type data_type_id: str, optional
         :param location_id: Identification to location(s) in CDO, defaults to None
         :type location_id: str, optional
         :param station_id: Identification to station(s) in CDO, defaults to None
         :type station_id: str, optional
-        :param start_date: Filter from time in ISO formatted date, defaults to None
-        :type start_date: str, optional
-        :param end_date: Filter to time in ISO formatted date, defaults to None
-        :type end_date: str, optional
         :param units: Data will be scaled and converted to the specified units, defaults to "metric"
         :type units: str, optional
         :param sort_field: Field to be used when sorting, defaults to None
@@ -471,6 +485,73 @@ class NOAA:
         station_id: Optional[str] = None,
         units: Optional[str] = "metric"
     ) -> dict:
+        _ids = [
+            dataset_id,
+            data_type_id,
+            data_category_id,
+            location_id,
+            location_category_id,
+            station_id
+        ]
+
+        for _id in _ids:
+            if not isinstance(_id, str) and _id is not None:
+                raise TypeError("IDs should be string's")
+
+        if not isinstance(extent, str) and extent is not None:
+            raise TypeError("")
+
+        # TODO: Support date time ISO input
+        _dates = [start_date, end_date]
+
+        for _date in _dates:
+            if not isinstance(_date, (str, datetime.datetime)
+                              ) and _date is not None:
+                raise TypeError("")
+
+            if _date is not None:
+                try:
+                    datetime.datetime.strptime(_date, "%Y-%m-%d")
+                except ValueError as iso_error:
+                    raise ValueError("") from iso_error
+
+        if isinstance(start_date, datetime.datetime):
+            start_date = start_date.strftime("%Y-%m-%d")
+
+        if isinstance(end_date, datetime.datetime):
+            end_date = end_date.strftime("%Y-%m-%d")
+
+        if not isinstance(include_metadata, bool):
+            raise TypeError("")
+
+        if not isinstance(limit, int):
+            raise TypeError("")
+
+        if limit > 1000:
+            raise ValueError(
+                "Maximum limit is 1000. Choose a value between 0 and 1000")
+
+        if not isinstance(offset, int):
+            raise TypeError("")
+
+        if not isinstance(sort_field, str) and sort_field is not None:
+            raise TypeError("")
+
+        if sort_field not in [None, "id", "name",
+                              "mindate", "maxdate", "datacoverage"]:
+            raise ValueError("")
+
+        if not isinstance(sort_order, str):
+            raise TypeError("")
+
+        if sort_order not in ["asc", "desc"]:
+            raise ValueError("")
+
+        if not isinstance(units, str):
+            raise TypeError("")
+
+        if units not in ["standard", "metric"]:
+            raise ValueError("")
 
         data = {
             "datacategoryid": data_category_id,

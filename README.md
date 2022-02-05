@@ -50,7 +50,11 @@ import noaa
 noaaobj = noaa.NOAA("<token>")
 
 print(noaaobj.get_datasets())
-print(noaaobj.get_data(dataset_id = "GSOM"))
+print(noaaobj.get_data(
+        dataset_id = "GSOM",
+        start_date="1970-10-03",
+        end_date="2012-09-10")
+)
 print(noaaobj.get_data_categories())
 print(noaaobj.get_data_types())
 print(noaaobj.get_locations())
