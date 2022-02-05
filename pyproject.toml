@@ -15,8 +15,7 @@ pythonVersion = "3.6"
 multi_line_output = 5
 
 [tool.pylint.master]
-ignore = ["__init__.py", "docs"]
-ignore-patterns = ["**/__pycache__/**/*.py", "**/docs/**/*.py"]
+ignore = ["__init__.py", "docs", "__pycache__"]
 jobs = 0
 persistent = "yes"
 
