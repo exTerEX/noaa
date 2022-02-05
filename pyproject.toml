@@ -20,4 +20,4 @@ jobs = 0
 persistent = "yes"
 
 [tool.pylint.messages_control]
-disable = ["too-many-arguments", "too-many-locals"]
+disable = ["too-many-arguments", "too-many-locals", "too-many-branches"]
