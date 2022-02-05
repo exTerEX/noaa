@@ -1,1 +1,1 @@
-from noaa.api import NOAA
+import noaa.climate as climate
