@@ -415,7 +415,6 @@ class NOAA:
             sort_order=sort_order
         )
 
-    # FIXME: Error not found
     def get_data(
         self,
         dataset_id: Union[str, datetime.datetime],
