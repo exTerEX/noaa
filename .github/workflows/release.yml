@@ -79,20 +79,10 @@ jobs:
 
     # TODO: Implement unittest and run
 
-  build:
-    if: github.event_name != 'pull_request'
-    name: Build wheel
-    needs: [format-check, lint-check, test]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2.4.0
-
   draft:
     if: github.event_name != 'pull_request'
     name: Create draft
-    needs: build
+    needs: [format-check, lint-check, test]
     runs-on: ubuntu-latest
 
     steps:
@@ -113,3 +103,36 @@ jobs:
             - Second Change
           draft: true
           prerelease: false
+
+  build:
+    if: github.event_name != 'pull_request'
+    name: Build wheel and fix to draft
+    needs: draft
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.4.0
+
+      - name: Set up Python python 3.6
+        uses: actions/setup-python@v2.3.2
+        with:
+          python-version: ["3.6"]
+
+      - name: Update dependencies
+        run:
+          python -m pip install --upgrade pip setuptools wheel
+
+      - name: Build wheel
+        run:
+          python -m pip wheel --use-pep517 --no-cache-dir .
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./noaa-${{ github.ref }}.post0-py3-none-any.whl
+          asset_name: noaa-${{ github.ref }}-py3-none-any.whl
+          asset_content_type: application/zip
