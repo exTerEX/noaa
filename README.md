@@ -8,7 +8,7 @@ Python API for NOAA climate data.
 
 To use this interface you need:
 
-- `python 3.6+`
+- `python 3.7+`
 
 For development you additionaly need:
 

@@ -48,7 +48,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v3.0.0
         with:
-          python-version: 3.6
+          python-version: 3.7
 
       - name: Install dependencies
         run: |
@@ -57,7 +57,7 @@ jobs:
 
       - name: Analysing the code with pylint
         run: |
-          pylint --errors-only --py-version=3.6 --rcfile=pyproject.toml noaa
+          pylint --errors-only --py-version=3.7 --rcfile=pyproject.toml noaa
 
   test:
     name: Test module on ${{ matrix.os }}
@@ -66,7 +66,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
       fail-fast: true
 
     steps:
@@ -114,11 +114,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2.4.0
 
-      - name: Set up Python 3.6
-        uses: actions/setup-python@v3.0.0
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2.3.2
         with:
           os: "ubuntu-latest"
-          python-version: "3.6"
+          python-version: "3.7"
 
       - name: Update dependencies
         run:

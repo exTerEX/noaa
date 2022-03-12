@@ -11,7 +11,7 @@ fallback_version = "0.0.1.dev+unset"
 exclude = ["**/__pycache__", "noaa.egg-info"]
 reportMissingImports = false
 reportMissingModuleSource = false
-pythonVersion = "3.6"
+pythonVersion = "3.7"
 
 [tool.isort]
 multi_line_output = 5
