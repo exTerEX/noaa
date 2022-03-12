@@ -474,7 +474,8 @@ class NOAA:
             sort_order=sort_order,
             start_date=start_date,
             station_id=station_id,
-            units=units
+            units=units,
+            __full_time=True
         )
 
     def _call_api(
@@ -494,7 +495,8 @@ class NOAA:
         sort_field: Optional[str] = None,
         sort_order: Optional[str] = "asc",
         station_id: Optional[Union[str, list, tuple]] = None,
-        units: Optional[str] = "metric"
+        units: Optional[str] = "metric",
+        __full_time=False
     ) -> dict:
         _ids_1 = [
             dataset_id,
@@ -518,27 +520,37 @@ class NOAA:
         if not isinstance(extent, str) and extent is not None:
             raise TypeError("Extent has to be a string type value")
 
-        # TODO: Support date-time ISO input
-        _dates = [start_date, end_date]
-
-        for _date in _dates:
-            if not isinstance(_date, (str, datetime.datetime)
-                              ) and _date is not None:
+        if start_date is not None:
+            if not isinstance(start_date, (str, datetime.datetime)):
                 raise TypeError(
-                    "Dates has to be given as a string or datetime type value")
+                    "start_date has to be given as a string or datetime type value")
 
-            if _date is not None and _date is not datetime.datetime:
-                try:
-                    datetime.datetime.strptime(_date, "%Y-%m-%d")
-                except ValueError as iso_error:
-                    raise ValueError(
-                        "Dates has to be on ISO date format 'yyyy-mm-dd'") from iso_error
+            try:
+                start_date = datetime.datetime.fromisoformat(start_date)
+            except ValueError as error:
+                raise ValueError(
+                    "start_date has to be on ISO date format") from error
 
-        if isinstance(start_date, datetime.datetime):
-            start_date = start_date.strftime("%Y-%m-%d")
+            if __full_time:
+                start_date = start_date.isoformat() + "T" + start_date.strftime("%H:%M:%S")
+            else:
+                start_date = start_date.isoformat()
 
-        if isinstance(end_date, datetime.datetime):
-            end_date = end_date.strftime("%Y-%m-%d")
+        if end_date is not None:
+            if not isinstance(end_date, (str, datetime.datetime)):
+                raise TypeError(
+                    "end_date has to be given as a string or datetime type value")
+
+            try:
+                end_date = datetime.datetime.fromisoformat(end_date)
+            except ValueError as error:
+                raise ValueError(
+                    "end_date has to be on ISO date format") from error
+
+            if __full_time:
+                end_date = end_date.isoformat() + "T" + end_date.strftime("%H:%M:%S")
+            else:
+                end_date = end_date.isoformat()
 
         if not isinstance(include_metadata, bool):
             raise TypeError("include_metadata should be a boolean type value")
