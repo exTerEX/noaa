@@ -66,8 +66,11 @@ jobs:
         uses: docker/metadata-action@v3.6.2
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=true
           tags: |
-            type=edge
+            branch=main,value=latest
+            type=semver,pattern={{version}}
 
       - name: Build and push Docker image
         id: build-and-push
