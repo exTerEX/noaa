@@ -125,14 +125,28 @@ jobs:
         run: python -m pip install --upgrade pip setuptools wheel
 
       - name: Build wheel of noaa
-        run: python -m pip wheel --use-pep517 --no-cache-dir .
+        run: python -m pip wheel --use-pep517 --wheel-dir wheels/ .
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v3.6.2
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=true
+          tags: |
+            type=pep440,pattern={{version}}
+
+      - name: Set tag var
+        id: tag
+        run: echo ::set-output name=pip_tag::$(echo ${{ steps.meta.outputs.tags }} | awk '{ print substr ($0, 3 ) }')
 
       - name: Upload and attach release asset to draft
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.draft.upload_url }}
-          asset_path: ./noaa-${{ github.ref }}.post0-py3-none-any.whl
-          asset_name: noaa-${{ github.ref }}-py3-none-any.whl
+          upload_url: ${{ needs.draft.outputs.upload_url }}
+          asset_path: ./wheels/noaa-${{ steps.tag.outputs.pip_tag }}-py3-none-any.whl
+          asset_name: noaa-${{ steps.tag.outputs.pip_tag }}-py3-none-any.whl
           asset_content_type: application/zip

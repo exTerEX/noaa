@@ -70,7 +70,7 @@ jobs:
             latest=true
           tags: |
             branch=main,value=latest
-            type=semver,pattern={{version}}
+            type=pep440,pattern={{version}}
 
       - name: Build and push Docker image
         id: build-and-push
