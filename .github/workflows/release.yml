@@ -77,6 +77,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install module on ${{ matrix.python-version }}
+        run: |
+          python -m pip install .
+
       - name: Run test on ${{ matrix.python-version }}
         run: |
           python tests/climate.py ${{ secrets.CDO_TOKEN }}
