@@ -1,20 +1,15 @@
 """
 Source code for API implementation
-
 MIT License
-
 Copyright (c) 2022 Andreas Sagen
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -31,9 +26,8 @@ import urllib.request
 from typing import Optional, Union
 
 
-class NOAA:
+class API:
     """Class for interfacing with NOAA climate data API
-
         :param key: Access token from NOAA
         :type key: str
     """
@@ -58,7 +52,6 @@ class NOAA:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available datasets in CDO or info on a specific dataset
-
         :param dataset_id: Identification to dataset in CDO, defaults to None
         :type dataset_id: str, optional
         :param data_type_id: Identification to datatype(s) in CDO, defaults to None
@@ -79,9 +72,7 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
-
         :raises TypeError: If dataset_id is not string or None, raises an error.
-
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -119,7 +110,6 @@ class NOAA:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available categories in CDO or info on a specific category
-
         :param category_id: Identification to category in CDO, defaults to None
         :type category_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
@@ -140,9 +130,7 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
-
         :raises TypeError: If category_id is not string or None, raises an error.
-
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -181,7 +169,6 @@ class NOAA:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available datatypes in CDO or info on a specific datatype
-
         :param type_id: Identification to type in CDO, defaults to None
         :type type_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
@@ -204,9 +191,7 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
-
         :raises TypeError: If type_id is not string or None, raises an error.
-
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -243,7 +228,6 @@ class NOAA:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available location categories in CDO or info on a specific location category
-
         :param location_category_id: Identification to location category in CDO, defaults to None
         :type location_category_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
@@ -260,9 +244,7 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
-
         :raises TypeError: If location_category_id is not string or None, raises an error.
-
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -299,7 +281,6 @@ class NOAA:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available locations in CDO or info on a specific location
-
         :param location_id: Identification to location in CDO, defaults to None
         :type location_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
@@ -320,9 +301,7 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
-
         :raises TypeError: If location_id is not string or None, raises an error.
-
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -362,7 +341,6 @@ class NOAA:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available stations in CDO or info on a specific station
-
         :param station_id: Identification to station in CDO, defaults to None
         :type station_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
@@ -387,9 +365,7 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
-
         :raises TypeError: If station_id is not string or None, raises an error.
-
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -431,7 +407,6 @@ class NOAA:
         include_metadata: Optional[bool] = False
     ) -> dict:
         """Get available data in CDO
-
         :param dataset_id: Identification to dataset in CDO
         :type dataset_id: str, datetime.datetime
         :param start_date: Filter from time in ISO formatted date
@@ -456,7 +431,6 @@ class NOAA:
         :type offset: int, optional
         :param include_metadata: Include or exclude metadata from CDO, defaults to False
         :type include_metadata: bool, optional
-
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -475,7 +449,7 @@ class NOAA:
             start_date=start_date,
             station_id=station_id,
             units=units,
-            __full_time=True
+            _full_time=True
         )
 
     def _call_api(
@@ -496,7 +470,7 @@ class NOAA:
         sort_order: Optional[str] = "asc",
         station_id: Optional[Union[str, list, tuple]] = None,
         units: Optional[str] = "metric",
-        __full_time=False
+        _full_time: bool = False
     ) -> dict:
         _ids_1 = [
             dataset_id,
@@ -531,7 +505,7 @@ class NOAA:
                 raise ValueError(
                     "start_date has to be on ISO date format") from error
 
-            if __full_time:
+            if _full_time:
                 start_date = start_date.isoformat() + "T" + start_date.strftime("%H:%M:%S")
             else:
                 start_date = start_date.isoformat()
@@ -547,7 +521,7 @@ class NOAA:
                 raise ValueError(
                     "end_date has to be on ISO date format") from error
 
-            if __full_time:
+            if _full_time:
                 end_date = end_date.isoformat() + "T" + end_date.strftime("%H:%M:%S")
             else:
                 end_date = end_date.isoformat()

@@ -15,7 +15,7 @@ pythonVersion = "3.7"
 multi_line_output = 5
 
 [tool.pylint.master]
-ignore = ["__init__.py", "docs", "__pycache__"]
+ignore = ["__init__.py", "docs", "tests", "__pycache__"]
 jobs = 0
 persistent = "yes"
 

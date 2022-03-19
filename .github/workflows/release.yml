@@ -77,7 +77,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-    # TODO: Implement unittest and run
+      - name: Run test on ${{ matrix.python-version }}
+        run: |
+          python tests/climate.py ${{ secrets.CDO_TOKEN }}
 
   draft:
     if: github.event_name != 'pull_request'
