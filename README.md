@@ -45,9 +45,9 @@ python -m pip install git+https://github.com/exTerEX/noaa/tarball/main
 Below is a simple example on how to use this API. Get a token from [NOAA](https://www.ncdc.noaa.gov/cdo-web/token) and input it into where `<token>` in the example below.
 
 ```python
-import noaa
+from noaa.climate import API
 
-noaaobj = noaa.NOAA("<token>")
+noaaobj = API("<token>")
 
 print(noaaobj.get_datasets())
 print(noaaobj.get_data(
@@ -65,7 +65,11 @@ See [documentation](https://www.ncdc.noaa.gov/cdo-web/webservices/v2) for an in-
 
 ### Running tests
 
-TODO: Not implemented yet.
+Run the tests in the CMD using the line under, with a valid token.
+
+```console
+python tests/climate.py <token>
+```
 
 ## Contributing
 
@@ -73,7 +77,7 @@ Please read [CONTRIBUTING](https://github.com/exTerEX/noaa/blob/main/.github/CON
 
 ## Versioning
 
-This project use [Semantic Versioning](https://semver.org/) for versioning. For the versions available, see the [tags](https://github.com/exTerEX/noaa/tags) on this repository.
+This project use [PEP440](https://peps.python.org/pep-0440/) for versioning. For the versions available, see the [tags](https://github.com/exTerEX/noaa/tags) on this repository.
 
 ## Authors
 
