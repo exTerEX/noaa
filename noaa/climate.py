@@ -28,8 +28,9 @@ from typing import Optional, Union
 
 class API:
     """Class for interfacing with NOAA climate data API
-        :param key: Access token from NOAA
-        :type key: str
+
+    :param key: Access token from NOAA
+    :type key: str
     """
 
     def __init__(self, key: str):
@@ -52,6 +53,7 @@ class API:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available datasets in CDO or info on a specific dataset
+
         :param dataset_id: Identification to dataset in CDO, defaults to None
         :type dataset_id: str, optional
         :param data_type_id: Identification to datatype(s) in CDO, defaults to None
@@ -73,6 +75,7 @@ class API:
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
         :raises TypeError: If dataset_id is not string or None, raises an error.
+
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -110,6 +113,7 @@ class API:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available categories in CDO or info on a specific category
+
         :param category_id: Identification to category in CDO, defaults to None
         :type category_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
@@ -130,7 +134,9 @@ class API:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
+
         :raises TypeError: If category_id is not string or None, raises an error.
+
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -169,6 +175,7 @@ class API:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available datatypes in CDO or info on a specific datatype
+
         :param type_id: Identification to type in CDO, defaults to None
         :type type_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
@@ -191,7 +198,9 @@ class API:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
+
         :raises TypeError: If type_id is not string or None, raises an error.
+
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -228,6 +237,7 @@ class API:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available location categories in CDO or info on a specific location category
+
         :param location_category_id: Identification to location category in CDO, defaults to None
         :type location_category_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
@@ -244,7 +254,9 @@ class API:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
+
         :raises TypeError: If location_category_id is not string or None, raises an error.
+
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -281,6 +293,7 @@ class API:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available locations in CDO or info on a specific location
+
         :param location_id: Identification to location in CDO, defaults to None
         :type location_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
@@ -301,7 +314,9 @@ class API:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
+
         :raises TypeError: If location_id is not string or None, raises an error.
+
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -341,6 +356,7 @@ class API:
         offset: Optional[int] = 0
     ) -> dict:
         """Get list of available stations in CDO or info on a specific station
+
         :param station_id: Identification to station in CDO, defaults to None
         :type station_id: str, optional
         :param dataset_id: Identification to dataset(s) in CDO, defaults to None
@@ -365,7 +381,9 @@ class API:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
+
         :raises TypeError: If station_id is not string or None, raises an error.
+
         :return: Return a object with data from response
         :rtype: dict
         """
@@ -407,6 +425,7 @@ class API:
         include_metadata: Optional[bool] = False
     ) -> dict:
         """Get available data in CDO
+
         :param dataset_id: Identification to dataset in CDO
         :type dataset_id: str, datetime.datetime
         :param start_date: Filter from time in ISO formatted date
@@ -431,6 +450,7 @@ class API:
         :type offset: int, optional
         :param include_metadata: Include or exclude metadata from CDO, defaults to False
         :type include_metadata: bool, optional
+
         :return: Return a object with data from response
         :rtype: dict
         """
