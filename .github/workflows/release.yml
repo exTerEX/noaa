@@ -119,7 +119,7 @@ jobs:
   draft:
     if: github.event_name != 'pull_request'
     name: Create draft
-    needs: [format-check, lint-check, test]
+    needs: [format-check, lint-check, coverage-check, test]
     runs-on: ubuntu-latest
 
     steps:
