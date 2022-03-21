@@ -59,6 +59,37 @@ jobs:
         run: |
           pylint --errors-only --py-version=3.7 --rcfile=pyproject.toml noaa
 
+  coverage-check:
+    name: Check coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - name: Set up Python
+        uses: actions/setup-python@v3.0.0
+        with:
+          python-version: 3.7
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install "coverage[toml]>=6.0,<7.0"
+
+      - name: Run coverage
+        run: |
+          python -m coverage run tests/climate.py ${{ secrets.CDO_TOKEN }}
+          python -m coverage xml
+
+      - uses: codecov/codecov-action@v2.1.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./coverage/xml/
+          files: ./coverage.xml
+          flags: unittests
+          name: codecov-noaa
+          fail_ci_if_error: true
+          verbose: true
+
   test:
     name: Test module on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
