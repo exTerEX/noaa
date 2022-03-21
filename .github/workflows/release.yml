@@ -84,7 +84,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: ./coverage/xml/
-          files: ./coverage.xml
+          files: coverage.xml
           flags: unittests
           name: codecov-noaa
           fail_ci_if_error: true
