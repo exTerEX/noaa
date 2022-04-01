@@ -27,7 +27,7 @@ jobs:
     name: Check correct formatting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
 
       - name: autopep8
         id: autopep8
@@ -43,7 +43,7 @@ jobs:
     name: Check correct lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v3.0.0
@@ -63,7 +63,7 @@ jobs:
     name: Check coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v3.0.0
@@ -101,7 +101,7 @@ jobs:
       fail-fast: true
 
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3.0.0
@@ -124,7 +124,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Create release
         id: create_release
@@ -151,7 +151,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Set up Python 3.7
         uses: actions/setup-python@v2.3.2
