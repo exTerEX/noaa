@@ -614,3 +614,12 @@ class NOAA:
 
         with urllib.request.urlopen(request) as response:
             return json.loads(response.read())
+
+
+noaaobj = NOAA("HKuVxxFuvyCdInqZJjGnQgYSHCNZcZLv")
+
+print(noaaobj.get_data(
+    dataset_id="GSOM",
+    start_date="1970-10-03",
+    end_date="2012-09-10")
+)
