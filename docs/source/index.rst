@@ -20,7 +20,7 @@ Getting started
 
 To use the API you require:
 
-* Python 3.5+
+* Python 3.7+
 
 Install the python module using pip:
 

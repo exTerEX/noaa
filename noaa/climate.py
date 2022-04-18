@@ -1,20 +1,15 @@
 """
 Source code for API implementation
-
 MIT License
-
 Copyright (c) 2022 Andreas Sagen
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -31,11 +26,11 @@ import urllib.request
 from typing import Optional, Union
 
 
-class NOAA:
+class API:
     """Class for interfacing with NOAA climate data API
 
-        :param key: Access token from NOAA
-        :type key: str
+    :param key: Access token from NOAA
+    :type key: str
     """
 
     def __init__(self, key: str):
@@ -79,7 +74,6 @@ class NOAA:
         :type limit: int, optional
         :param offset: Offset first result in response from CDO, defaults to 0
         :type offset: int, optional
-
         :raises TypeError: If dataset_id is not string or None, raises an error.
 
         :return: Return a object with data from response
@@ -415,7 +409,6 @@ class NOAA:
             sort_order=sort_order
         )
 
-    # FIXME: Error not found
     def get_data(
         self,
         dataset_id: Union[str, datetime.datetime],
@@ -475,7 +468,8 @@ class NOAA:
             sort_order=sort_order,
             start_date=start_date,
             station_id=station_id,
-            units=units
+            units=units,
+            _full_time=True
         )
 
     def _call_api(
@@ -495,7 +489,8 @@ class NOAA:
         sort_field: Optional[str] = None,
         sort_order: Optional[str] = "asc",
         station_id: Optional[Union[str, list, tuple]] = None,
-        units: Optional[str] = "metric"
+        units: Optional[str] = "metric",
+        _full_time: bool = False
     ) -> dict:
         _ids_1 = [
             dataset_id,
@@ -519,27 +514,37 @@ class NOAA:
         if not isinstance(extent, str) and extent is not None:
             raise TypeError("Extent has to be a string type value")
 
-        # TODO: Support date-time ISO input
-        _dates = [start_date, end_date]
-
-        for _date in _dates:
-            if not isinstance(_date, (str, datetime.datetime)
-                              ) and _date is not None:
+        if start_date is not None:
+            if not isinstance(start_date, (str, datetime.datetime)):
                 raise TypeError(
-                    "Dates has to be given as a string or datetime type value")
+                    "start_date has to be given as a string or datetime type value")
 
-            if _date is not None and _date is not datetime.datetime:
-                try:
-                    datetime.datetime.strptime(_date, "%Y-%m-%d")
-                except ValueError as iso_error:
-                    raise ValueError(
-                        "Dates has to be on ISO date format 'yyyy-mm-dd'") from iso_error
+            try:
+                start_date = datetime.datetime.fromisoformat(start_date)
+            except ValueError as error:
+                raise ValueError(
+                    "start_date has to be on ISO date format") from error
 
-        if isinstance(start_date, datetime.datetime):
-            start_date = start_date.strftime("%Y-%m-%d")
+            if _full_time:
+                start_date = start_date.isoformat() + "T" + start_date.strftime("%H:%M:%S")
+            else:
+                start_date = start_date.isoformat()
 
-        if isinstance(end_date, datetime.datetime):
-            end_date = end_date.strftime("%Y-%m-%d")
+        if end_date is not None:
+            if not isinstance(end_date, (str, datetime.datetime)):
+                raise TypeError(
+                    "end_date has to be given as a string or datetime type value")
+
+            try:
+                end_date = datetime.datetime.fromisoformat(end_date)
+            except ValueError as error:
+                raise ValueError(
+                    "end_date has to be on ISO date format") from error
+
+            if _full_time:
+                end_date = end_date.isoformat() + "T" + end_date.strftime("%H:%M:%S")
+            else:
+                end_date = end_date.isoformat()
 
         if not isinstance(include_metadata, bool):
             raise TypeError("include_metadata should be a boolean type value")

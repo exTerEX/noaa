@@ -1,22 +1,21 @@
 [build-system]
-requires = ["setuptools>=42.0.0", "wheel>=0.29.0", "setuptools_scm"]
+requires = ["setuptools>=42.0.0", "wheel>=0.29.0", "setuptools-git-versioning"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools_scm]
-version_scheme = "python-simplified-semver"
-fallback_version = "0.0.1.dev+unset"
+[tool.setuptools-git-versioning]
+enabled = true
 
 [tool.pyright]
 exclude = ["**/__pycache__", "noaa.egg-info"]
 reportMissingImports = false
 reportMissingModuleSource = false
-pythonVersion = "3.6"
+pythonVersion = "3.7"
 
 [tool.isort]
 multi_line_output = 5
 
 [tool.pylint.master]
-ignore = ["__init__.py", "docs", "__pycache__"]
+ignore = ["__init__.py", "docs", "tests", "__pycache__"]
 jobs = 0
 persistent = "yes"
 
@@ -27,3 +26,6 @@ disable = [
     "too-many-branches",
     "too-many-statements",
 ]
+
+[tool.coverage.xml]
+output = "./coverage/xml/coverage.xml"
