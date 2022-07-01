@@ -1,11 +1,11 @@
-FROM python:3.10.4-buster as builder
+FROM python:3.10.5-buster as builder
 
 COPY --chown=root:root . /tmp/noaa
 WORKDIR /tmp/noaa
 
 RUN pip wheel --use-pep517 .
 
-FROM python:3.10.4-buster
+FROM python:3.10.5-buster
 
 COPY --from=builder /tmp/noaa/*.whl /tmp
 
