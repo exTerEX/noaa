@@ -46,7 +46,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v3.1.2
+        uses: actions/setup-python@v4.1.0
         with:
           python-version: 3.7
 
@@ -66,7 +66,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v3.1.2
+        uses: actions/setup-python@v4.1.0
         with:
           python-version: 3.7
 
@@ -80,7 +80,7 @@ jobs:
           python -m coverage run tests/climate.py ${{ secrets.CDO_TOKEN }}
           python -m coverage xml
 
-      - uses: codecov/codecov-action@v3.1.0
+      - uses: codecov/codecov-action@v3.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: ./coverage/xml/
@@ -104,7 +104,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3.1.2
+        uses: actions/setup-python@v4.1.0
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -154,7 +154,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set up Python 3.7
-        uses: actions/setup-python@v3.1.2
+        uses: actions/setup-python@v4.1.0
         with:
           python-version: "3.7"
 
