@@ -31,7 +31,7 @@ jobs:
 
       - name: autopep8
         id: autopep8
-        uses: peter-evans/autopep8@v1.2.1
+        uses: peter-evans/autopep8@v1.2.2
         with:
           args: --recursive --diff --aggressive --aggressive noaa/**/*.py
 
