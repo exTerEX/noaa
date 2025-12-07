@@ -1,12 +1,20 @@
-FROM python:3.11.4-buster as builder
+FROM python:3.12-slim
 
-COPY --chown=root:root . /tmp/noaa
-WORKDIR /tmp/noaa
+LABEL org.opencontainers.image.source="https://github.com/exTerEX/noaa"
+LABEL org.opencontainers.image.description="NOAA Climate Data Online API Client"
+LABEL org.opencontainers.image.licenses="MIT"
 
-RUN pip wheel --use-pep517 .
+WORKDIR /app
 
-FROM python:3.11.4-buster
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-COPY --from=builder /tmp/noaa/*.whl /tmp
+# Copy project files
+COPY pyproject.toml uv.lock* ./
+COPY noaa/ ./noaa/
 
-RUN cd /tmp && pip install *.whl && rm *.whl
+# Install dependencies
+RUN uv pip install --system --no-cache .
+
+# Default command
+CMD ["python", "-c", "from noaa import NOAA; print('NOAA API Client ready')"]

@@ -1,13 +1,7 @@
 {
-	"python.linting.enabled": true,
-	"python.linting.pylintEnabled": true,
-	"python.linting.pylintArgs": [
-		"--rcfile=pyproject.toml"
+	"python.testing.pytestArgs": [
+		"tests"
 	],
-	"python.formatting.provider": "autopep8",
-	"python.formatting.autopep8Args": [
-		"--aggressive",
-		"--experimental"
-	],
-	"autoDocstring.docstringFormat": "sphinx"
+	"python.testing.unittestEnabled": false,
+	"python.testing.pytestEnabled": true
 }
