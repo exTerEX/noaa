@@ -2,7 +2,7 @@
 
 A Python client for accessing the NOAA Climate Data Online (CDO) API. This library provides a simple, intuitive interface to retrieve historical weather and climate data from NOAA's extensive archive.
 
-[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ## Features
@@ -183,7 +183,7 @@ noaa/
 
 ## Documentation
 
-Full documentation is available at [Read the Docs](#) (or your documentation URL).
+Full documentation is available at https://exterex.github.io/noaa/
 
 ## License
 
