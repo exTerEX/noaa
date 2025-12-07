@@ -8,18 +8,30 @@ http://www.sphinx-doc.org/en/master/config
 
 import os
 import sys
+import re
 
 # -- Path setup --------------------------------------------------------------
 
 sys.path.insert(0, os.path.abspath("../../noaa"))
+
+# -- Version extraction from __init__.py ------------------------------------
+
+def get_version():
+    """Extract version from noaa/__init__.py"""
+    init_file = os.path.join(os.path.dirname(__file__), "../../src/noaa/__init__.py")
+    with open(init_file, "r") as f:
+        content = f.read()
+        match = re.search(r'__version__\s*=\s*["\']([^"\']+)["\']', content)
+        if match:
+            return match.group(1)
 
 # -- Project information -----------------------------------------------------
 
 project = "NOAA Climate API"
 copyright = "2024, NOAA Climate API Contributors"
 author = "NOAA Climate API Contributors"
-release = "0.2.0"
-version = "0.2.0"
+release = get_version()
+version = release
 
 # -- General configuration ---------------------------------------------------
 
