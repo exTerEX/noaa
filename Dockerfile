@@ -11,7 +11,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 # Copy project files
 COPY pyproject.toml uv.lock* ./
-COPY noaa/ ./noaa/
+COPY src/noaa/ ./noaa/
 
 # Install dependencies
 RUN uv pip install --system --no-cache .
