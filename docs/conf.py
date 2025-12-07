@@ -8,8 +8,8 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'NOAA Climate API'
 copyright = '2024, NOAA Climate API Contributors'
 author = 'NOAA Climate API Contributors'
-release = '0.2.0'
-version = '0.2.0'
+release = '0.2.1'
+version = '0.2.1'
 
 # -- General configuration ---------------------------------------------------
 extensions = [
