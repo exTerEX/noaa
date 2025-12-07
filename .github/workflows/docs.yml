@@ -46,7 +46,7 @@ jobs:
           path: docs/_build/html/
 
       - name: Upload documentation artifact (PR)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: github.event_name == 'pull_request'
         with:
           name: documentation
