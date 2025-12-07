@@ -1,4 +1,4 @@
-FROM python:3.14-slim
+FROM python:3.12-slim
 
 LABEL org.opencontainers.image.source="https://github.com/exTerEX/noaa"
 LABEL org.opencontainers.image.description="NOAA Climate Data Online API Client"
@@ -10,10 +10,12 @@ WORKDIR /app
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 # Copy project files
-COPY . .
+COPY pyproject.toml ./
+COPY README.md ./
+COPY src/noaa ./src/noaa/
 
-# Install dependencies
-RUN uv pip install --system --no-cache .
+# Install the package
+RUN uv pip install --system --no-cache --no-build-isolation -e .
 
 # Default command
-CMD ["python", "-c", "from noaa import NOAA; print('NOAA API Client ready')"]
+CMD ["python", "-c", "import noaa; print(f'NOAA API Client v{noaa.__version__} ready')"]

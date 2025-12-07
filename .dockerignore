@@ -15,5 +15,4 @@ htmlcov
 docs
 test
 tests
-*.md
 Makefile

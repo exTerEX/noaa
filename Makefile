@@ -1,4 +1,4 @@
-.PHONY: install test coverage coverage-html clean lint sync docs docs-clean
+.PHONY: install test coverage coverage-html clean lint sync docs docs-clean docker docker-build docker-run
 
 install:
 	uv pip install -e ".[dev]"
@@ -45,3 +45,20 @@ lint:
 lint-fix:
 	uv run ruff check --fix src/noaa/
 	uv run ruff format src/noaa/
+
+docker:
+	@echo "Building Docker image..."
+	docker build -t noaa-api:latest .
+	@echo "Docker image built successfully"
+
+docker-build:
+	@echo "Building Docker image with tag noaa-api:latest"
+	docker build -t noaa-api:latest -t noaa-api:$(shell grep version pyproject.toml | head -1 | cut -d'"' -f2) .
+
+docker-run:
+	@echo "Running Docker image..."
+	docker run --rm noaa-api:latest
+
+docker-shell:
+	@echo "Starting interactive shell in Docker container..."
+	docker run --rm -it noaa-api:latest python
