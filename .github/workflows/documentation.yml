@@ -8,13 +8,25 @@ on:
     branches:
       - main
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+    paths-ignore:
+      - ".devcontainer/**"
+      - ".github/workflows/CI.yml"
+      - ".github/workflows/codeql.yml"
+      - ".github/workflows/publish.yml"
+      - ".github/dependabot.yml"
+      - ".vscode/**"
+      - "tests/**"
+      - ".dockerignore"
+      - ".git*"
+      - "Dockerfile"
+      - "LICENSE"
+      - "Makefile"
+
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false

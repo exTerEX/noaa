@@ -1,0 +1,55 @@
+name: CodeQL
+
+on:
+  pull_request:
+    branches:
+      - main
+
+    paths-ignore:
+      - ".devcontainer/**"
+      - ".github/workflows/CI.yml"
+      - ".github/workflows/documentation.yml"
+      - ".github/workflows/publish.yml"
+      - ".github/dependabot.yml"
+      - ".vscode/**"
+      - "docs/**"
+      - ".dockerignore"
+      - ".git*"
+      - "Dockerfile"
+      - "LICENSE"
+      - "Makefile"
+      - "README.md"
+
+  schedule:
+    - cron: "0 12 * * sun"
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: "ubuntu-latest"
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ "python", "actions" ]
+        build-mode: [ "none" ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v4
+      with:
+        languages: ${{ matrix.language }}
+        build-mode: ${{ matrix.build-mode }}
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v4
+      with:
+        category: "/language:${{matrix.language}}"
