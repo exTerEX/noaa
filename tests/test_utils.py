@@ -4,7 +4,12 @@ import datetime
 import pytest
 from unittest.mock import MagicMock, patch
 
-from noaa.utils import parse_date, join_ids, build_query_params, make_api_request
+from noaa.utils import (
+    parse_date,
+    join_ids,
+    build_query_params,
+    make_api_request,
+)
 from noaa.exceptions import ValidationError
 
 

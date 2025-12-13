@@ -62,7 +62,9 @@ class TestValidateStringOrSequence:
 
     def test_invalid_int(self):
         """Should reject integers."""
-        with pytest.raises(ValidationError, match="should be a string or sequence"):
+        with pytest.raises(
+            ValidationError, match="should be a string or sequence"
+        ):
             validate_string_or_sequence(123, "param")
 
 
@@ -78,7 +80,7 @@ class TestValidateLimit:
     def test_invalid_type(self):
         """Should reject non-integers."""
         with pytest.raises(ValidationError, match="should be an integer"):
-            validate_limit("25") # type: ignore
+            validate_limit("25")  # type: ignore
 
     def test_limit_too_high(self):
         """Should reject limits over 1000."""
@@ -102,7 +104,7 @@ class TestValidateOffset:
     def test_invalid_type(self):
         """Should reject non-integers."""
         with pytest.raises(ValidationError, match="should be an integer"):
-            validate_offset("0") # type: ignore
+            validate_offset("0")  # type: ignore
 
 
 class TestValidateSortField:
@@ -125,7 +127,7 @@ class TestValidateSortField:
     def test_invalid_type(self):
         """Should reject non-strings."""
         with pytest.raises(ValidationError, match="should be a string"):
-            validate_sort_field(123) # type: ignore
+            validate_sort_field(123)  # type: ignore
 
 
 class TestValidateSortOrder:
@@ -144,7 +146,7 @@ class TestValidateSortOrder:
     def test_invalid_type(self):
         """Should reject non-strings."""
         with pytest.raises(ValidationError, match="should be a string"):
-            validate_sort_order(123) # type: ignore
+            validate_sort_order(123)  # type: ignore
 
 
 class TestValidateUnits:
@@ -163,7 +165,7 @@ class TestValidateUnits:
     def test_invalid_type(self):
         """Should reject non-strings."""
         with pytest.raises(ValidationError, match="should be a string"):
-            validate_units(123) # type: ignore
+            validate_units(123)  # type: ignore
 
 
 class TestValidateBoolean:

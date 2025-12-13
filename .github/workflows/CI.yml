@@ -1,0 +1,74 @@
+name: Continuous integration
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.10', '3.11', '3.12', '3.13', '3.14', '3.15']
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Set up UV
+      uses: astral-sh/setup-uv@v7
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install the project dependencies
+      run: uv sync --locked --all-extras --dev
+
+    - name: Run tests
+      run: |
+        uv run pytest
+
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Set up UV
+      uses: astral-sh/setup-uv@v7
+
+    - name: Install the project dependencies
+      run: uv sync --locked --all-extras --dev
+
+    - name: Run tests
+      run: |
+        uv run pytest --cov=noaa --cov-report=xml
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: exTerEX/noaa
+        fail_ci_if_error: true
+        files: ./coverage.xml
+        flags: unittests
+        verbose: true
+
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up UV
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install the project dependencies
+        run: uv sync --locked --all-extras --dev
+
+      - name: Run Ruff format
+        run: uv run ruff format --check
+
+      - name: Run Ruff linter
+        run: uv run ruff check --output-format=github .

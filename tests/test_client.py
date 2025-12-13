@@ -23,18 +23,20 @@ class TestNOAAInit:
     def test_none_token(self):
         """Should reject None token."""
         with pytest.raises(ValidationError, match="non-empty string"):
-            NOAA(None) # type: ignore
+            NOAA(None)  # type: ignore
 
     def test_invalid_token_type(self):
         """Should reject non-string token."""
         with pytest.raises(ValidationError, match="non-empty string"):
-            NOAA(12345) # type: ignore
+            NOAA(12345)  # type: ignore
 
 
 class TestGetDatasets:
     """Tests for get_datasets method."""
 
-    def test_get_all_datasets(self, noaa_client, mock_response, sample_datasets_response):
+    def test_get_all_datasets(
+        self, noaa_client, mock_response, sample_datasets_response
+    ):
         """Should fetch all datasets."""
         mock = mock_response(sample_datasets_response)
 
@@ -46,13 +48,10 @@ class TestGetDatasets:
 
     def test_get_specific_dataset(self, noaa_client, mock_response):
         """Should fetch specific dataset by ID."""
-        response_data = {
-            "id": "GHCND",
-            "name": "Daily Summaries"
-        }
+        response_data = {"id": "GHCND", "name": "Daily Summaries"}
         mock = mock_response(response_data)
 
-        with patch("noaa.utils.urllib.request.urlopen", return_value=mock) as mock_urlopen:
+        with patch("noaa.utils.urllib.request.urlopen", return_value=mock):
             with patch("noaa.utils.urllib.request.Request") as mock_request:
                 mock_request.return_value = MagicMock()
                 noaa_client.get_datasets(dataset_id="GHCND")
@@ -65,7 +64,9 @@ class TestGetDatasets:
         with pytest.raises(ValidationError):
             noaa_client.get_datasets(dataset_id=123)
 
-    def test_with_filters(self, noaa_client, mock_response, sample_datasets_response):
+    def test_with_filters(
+        self, noaa_client, mock_response, sample_datasets_response
+    ):
         """Should include filter parameters."""
         mock = mock_response(sample_datasets_response)
 
@@ -73,9 +74,7 @@ class TestGetDatasets:
             with patch("noaa.utils.urllib.request.Request") as mock_request:
                 mock_request.return_value = MagicMock()
                 noaa_client.get_datasets(
-                    start_date="2020-01-01",
-                    end_date="2023-12-31",
-                    limit=50
+                    start_date="2020-01-01", end_date="2023-12-31", limit=50
                 )
 
                 call_args = mock_request.call_args[1]
@@ -155,7 +154,9 @@ class TestGetLocations:
 
     def test_get_all_locations(self, noaa_client, mock_response):
         """Should fetch all locations."""
-        response_data = {"results": [{"id": "FIPS:37", "name": "North Carolina"}]}
+        response_data = {
+            "results": [{"id": "FIPS:37", "name": "North Carolina"}]
+        }
         mock = mock_response(response_data)
 
         with patch("noaa.utils.urllib.request.urlopen", return_value=mock):
@@ -179,7 +180,9 @@ class TestGetLocations:
 class TestGetStations:
     """Tests for get_stations method."""
 
-    def test_get_all_stations(self, noaa_client, mock_response, sample_stations_response):
+    def test_get_all_stations(
+        self, noaa_client, mock_response, sample_stations_response
+    ):
         """Should fetch all stations."""
         mock = mock_response(sample_stations_response)
 
@@ -224,7 +227,7 @@ class TestGetData:
             result = noaa_client.get_data(
                 dataset_id="GHCND",
                 start_date="2023-01-01",
-                end_date="2023-01-31"
+                end_date="2023-01-31",
             )
 
         assert result == sample_data_response
@@ -240,7 +243,7 @@ class TestGetData:
                 noaa_client.get_data(
                     dataset_id="GHCND",
                     start_date="2023-01-01",
-                    end_date="2023-01-31"
+                    end_date="2023-01-31",
                 )
 
                 call_args = mock_request.call_args[1]
@@ -258,7 +261,7 @@ class TestGetData:
                     dataset_id="GHCND",
                     start_date="2023-01-01",
                     end_date="2023-01-31",
-                    units="standard"
+                    units="standard",
                 )
 
                 call_args = mock_request.call_args[1]
@@ -275,7 +278,7 @@ class TestGetData:
                     dataset_id="GHCND",
                     start_date="2023-01-01",
                     end_date="2023-01-31",
-                    include_metadata=True
+                    include_metadata=True,
                 )
 
                 call_args = mock_request.call_args[1]
