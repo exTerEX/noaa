@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 LABEL org.opencontainers.image.source="https://github.com/exTerEX/noaa"
 LABEL org.opencontainers.image.description="NOAA Climate Data Online API Client"
